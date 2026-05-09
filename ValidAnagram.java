@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*;  //when lowercase and uppercase mixed, fr flexibility
 public class ValidAnagram {
     public static boolean isAnagram(String s, String t){
         Map<Character,Integer> map = new HashMap<>();
@@ -30,20 +30,40 @@ public class ValidAnagram {
 
 
 //using array
-public static boolean isAnagram(String s,String t){
+public boolean isAnagram(String s,String t){
+    if(s.length()!=t.length()) return false;
     int[] count = new int[26];
-    if(s.length()!=t.length()){
-        return false;
+    for(char c : s.toCharArray()){
+        count[c-'a']++;
     }
-    for(char c:s.toCharArray()){
-       [count - 'a']++;
+    for(char c : t.toCharArray()){
+        count[c-'a']--;
     }
-
-    for(char c:t.toCharArray()){
-        [count - 'a']--;
-    }
-    if([count - 'a']<0){
-        return false;
+    for(int num : count){
+        if(num != 0){
+            return false;
+        }
     }
     return true;
+}
+
+
+//much optimized one
+public boolean isAnagram(String s, String t) {
+   if(s.length()!=t.length()) return false;
+
+   int[] count = new int[26];
+
+   for(int i=0;i<s.length();i++){
+      count[s.charAt(i) - 'a']++;
+   }
+
+   for(int i=0;i<t.length();i++){
+      count[t.charAt(i) - 'a']--;
+
+      if(count[t.charAt(i) - 'a']<0){
+          return false;
+      }
+   }
+   return true;
 }
